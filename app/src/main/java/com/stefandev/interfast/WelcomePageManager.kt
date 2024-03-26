@@ -9,6 +9,7 @@ import android.os.Looper
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Button
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
@@ -34,7 +35,7 @@ class WelcomePageManager(private val activity: AppCompatActivity) {
 
         imageViewIds.forEach { id ->
             val imageView = activity.findViewById<ImageView>(id)
-            animateLetter(imageView, currentDelay)
+            animateLetter(imageView, currentDelay) { }
             currentDelay += lettersDelay
         }
 
@@ -51,20 +52,63 @@ class WelcomePageManager(private val activity: AppCompatActivity) {
         val imageViewLetterTfade = activity.findViewById<ImageView>(R.id.t_fade)
 
         // Apply the blur for the letters "f", "a", "s" and "t" letters
-        imageViewLetterF.setRenderEffect(RenderEffect.createBlurEffect(7f,7f, Shader.TileMode.MIRROR))
-        imageViewLetterA.setRenderEffect(RenderEffect.createBlurEffect(7f,7f, Shader.TileMode.MIRROR))
-        imageViewLetterS.setRenderEffect(RenderEffect.createBlurEffect(7f,7f, Shader.TileMode.MIRROR))
-        imageViewLetterTfade.setRenderEffect(RenderEffect.createBlurEffect(7f,7f, Shader.TileMode.MIRROR))
+        imageViewLetterF.setRenderEffect(
+            RenderEffect.createBlurEffect(
+                4f,
+                4f,
+                Shader.TileMode.MIRROR
+            )
+        )
+        imageViewLetterA.setRenderEffect(
+            RenderEffect.createBlurEffect(
+                4f,
+                4f,
+                Shader.TileMode.MIRROR
+            )
+        )
+        imageViewLetterS.setRenderEffect(
+            RenderEffect.createBlurEffect(
+                4f,
+                4f,
+                Shader.TileMode.MIRROR
+            )
+        )
+        imageViewLetterTfade.setRenderEffect(
+            RenderEffect.createBlurEffect(
+                4f,
+                4f,
+                Shader.TileMode.MIRROR
+            )
+        )
 
-        // Animate the "f", "a", "s", and "t" letters
-        animateLetter(imageViewLetterF, 3000, true)
-        animateLetter(imageViewLetterA, 3000, true)
-        animateLetter(imageViewLetterS, 3000, true)
-        animateLetter(imageViewLetterTfade, 3000, true)
+        // Animate the "f" letter and apply blur after animation
+        animateLetter(imageViewLetterF, 3000, true) {
+            applyBlurEffect(imageViewLetterF)
+        }
+
+        // Animate the "a" letter and apply blur after animation
+        animateLetter(imageViewLetterA, 3000, true) {
+            applyBlurEffect(imageViewLetterA)
+        }
+
+        // Animate the "s" letter and apply blur after animation
+        animateLetter(imageViewLetterS, 3000, true) {
+            applyBlurEffect(imageViewLetterS)
+        }
+
+        // Animate the "t" letter and apply blur after animation
+        animateLetter(imageViewLetterTfade, 3000, true) {
+            applyBlurEffect(imageViewLetterTfade)
+        }
     }
 
     // Function that animates the letters and make that bouncy effect
-    private fun animateLetter(letter: ImageView, delay: Long, fromRight: Boolean = false) {
+    private fun animateLetter(
+        letter: ImageView,
+        delay: Long,
+        fromRight: Boolean = false,
+        onAnimationEnd: () -> Unit
+    ) {
         Handler(Looper.getMainLooper()).postDelayed({
             letter.alpha = 0f
             letter.visibility = View.VISIBLE
@@ -86,8 +130,16 @@ class WelcomePageManager(private val activity: AppCompatActivity) {
                             duration = 200
                         }
                     bounceAnimator.start()
+                    onAnimationEnd() // Invoke the callback function
                 }
                 .start()
         }, delay)
+    }
+
+    // Blur effect after the animation
+    private fun applyBlurEffect(imageView: ImageView) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            imageView.setRenderEffect(RenderEffect.createBlurEffect(4f, 4f, Shader.TileMode.MIRROR))
+        }
     }
 }
