@@ -25,6 +25,7 @@ class WelcomePageManager(private val activity: AppCompatActivity) {
 
         val lightingBoltImageView = activity.findViewById<ImageView>(R.id.LightingBolt)
         lightingBoltImageView.startAnimation(fadeInAnimation)
+        val startButton = activity.findViewById<Button>(R.id.start_button)
 
         val lettersDelay = 250L
         var currentDelay = 1000L
@@ -39,11 +40,23 @@ class WelcomePageManager(private val activity: AppCompatActivity) {
             currentDelay += lettersDelay
         }
 
+        // Fade for Quote
         Handler(Looper.getMainLooper()).postDelayed({
             val quoteImageView = activity.findViewById<ImageView>(R.id.quoteImageView)
             quoteImageView.visibility = View.VISIBLE
             quoteImageView.startAnimation(fadeInAnimation)
         }, 3800)
+
+        // Fade for button
+        Handler(Looper.getMainLooper()).postDelayed({
+            startButton.visibility = View.VISIBLE
+            startButton.startAnimation(fadeInAnimation)
+        }, 3800)
+
+        startButton.setOnClickListener {
+            val introductionPage = IntroductionPage(activity)
+            introductionPage.showIntroductionPage()
+        }
 
         // Declare ImageView objects for the "f", "a", "s" and "t" letters
         val imageViewLetterF = activity.findViewById<ImageView>(R.id.f)
@@ -130,7 +143,7 @@ class WelcomePageManager(private val activity: AppCompatActivity) {
                             duration = 200
                         }
                     bounceAnimator.start()
-                    onAnimationEnd() // Invoke the callback function
+                    onAnimationEnd()
                 }
                 .start()
         }, delay)
@@ -140,6 +153,41 @@ class WelcomePageManager(private val activity: AppCompatActivity) {
     private fun applyBlurEffect(imageView: ImageView) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             imageView.setRenderEffect(RenderEffect.createBlurEffect(4f, 4f, Shader.TileMode.MIRROR))
+        }
+    }
+
+    // Function to fade the elements from welcome page to the introduction page
+    private fun navigateToIntroductionPage() {
+        val introductionPageView = activity.layoutInflater.inflate(
+            R.layout.introduction_page,
+            activity.findViewById(android.R.id.content),
+            false
+        )
+
+        val viewsToFadeOut = listOf<View>(
+            activity.findViewById(R.id.LightingBolt),
+            activity.findViewById(R.id.start_button),
+            activity.findViewById(R.id.quoteImageView),
+            activity.findViewById(R.id.i),
+            activity.findViewById(R.id.n),
+            activity.findViewById(R.id.t),
+            activity.findViewById(R.id.e),
+            activity.findViewById(R.id.r),
+            activity.findViewById(R.id.f),
+            activity.findViewById(R.id.a),
+            activity.findViewById(R.id.s),
+            activity.findViewById(R.id.t_fade)
+        )
+
+        viewsToFadeOut.forEach { view ->
+            view.animate().apply {
+                alpha(0f)
+                duration = 800
+                withEndAction {
+                    activity.setContentView(introductionPageView)
+                }
+                start()
+            }
         }
     }
 }

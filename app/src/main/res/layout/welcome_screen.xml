@@ -180,6 +180,7 @@
         android:layout_marginBottom="180dp"
         android:backgroundTint="@color/buttons"
         android:fontFamily="@font/lemon"
+        android:visibility="invisible"
         android:text="@string/start"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/LightingBolt"
