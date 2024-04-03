@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">InterFast</string>
     <string name="lighting_bolt">Lighting bolt</string>
-    <string name="Application_Quote"/>
-    <string name="Letters"/>
+    <string name="Application_Quote" />
+    <string name="Letters" />
     <string name="start">START</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="introduction_message">Thank you for downloading Interfast, I hope this app will help you to be healthier and be a better version of yourself!</string>
+    <string name="next_button">Next</string>
 </resources>
