@@ -8,7 +8,7 @@
         android:id="@+id/thanksMessage"
         android:layout_width="303sp"
         android:layout_height="136sp"
-        android:layout_marginTop="275sp"
+        android:layout_marginTop="295sp"
         android:background="@drawable/rounded_rectangle"
         android:fontFamily="@font/lemon"
         android:gravity="center"

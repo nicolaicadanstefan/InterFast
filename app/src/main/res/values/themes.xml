@@ -5,6 +5,10 @@
 
     <style name="LaunchTheme" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowBackground">@color/background</item>
+
+        <!--Transparent Status Bar-->
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
     <style name="Theme.InterFast" parent="Base.Theme.InterFast" />

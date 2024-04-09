@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/flame"
+        android:title="@string/flame"
+        android:icon="@drawable/ic_launcher_foreground" />
+    <item android:id="@+id/flame2"
+        android:title="@string/flame"
+        android:icon="@drawable/ic_launcher_foreground" />
+    <item android:id="@+id/flame3"
+        android:title="@string/flame"
+        android:icon="@drawable/ic_launcher_foreground" />
+</menu>

@@ -3,11 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/mainActivity">
+    app:startDestination="@id/welcomeActivity">
+
+    <activity
+        android:id="@+id/welcomeActivity"
+        android:name="com.stefandev.interfast.WelcomeActivity"
+        android:label="WelcomeActivity"
+        tools:layout="@layout/welcome_screen" />
+
+    <activity
+        android:id="@+id/IntroductionActivity"
+        android:name="com.stefandev.interfast.IntroductionActivity"
+        android:label="IntroductionActivity"
+        tools:layout="@layout/introduction_page" />
 
     <activity
         android:id="@+id/mainActivity"
         android:name="com.stefandev.interfast.MainActivity"
         android:label="MainActivity"
         tools:layout="@layout/activity_main" />
+
+    <action
+        android:id="@+id/action_welcomeActivity_to_introductionActivity"
+        app:destination="@id/IntroductionActivity" />
+
+    <action
+        android:id="@+id/action_introductionActivity_to_mainActivity"
+        app:destination="@id/mainActivity" />
 </navigation>
